@@ -1,4 +1,5 @@
 ################################################################################
+# MRS Version: 2.1.0
 # Automatically-generated file. Do not edit!
 ################################################################################
 
@@ -21,24 +22,6 @@ C_SRCS += \
 ../Peripheral/src/ch32v00x_usart.c \
 ../Peripheral/src/ch32v00x_wwdg.c 
 
-OBJS += \
-./Peripheral/src/ch32v00x_adc.o \
-./Peripheral/src/ch32v00x_dbgmcu.o \
-./Peripheral/src/ch32v00x_dma.o \
-./Peripheral/src/ch32v00x_exti.o \
-./Peripheral/src/ch32v00x_flash.o \
-./Peripheral/src/ch32v00x_gpio.o \
-./Peripheral/src/ch32v00x_i2c.o \
-./Peripheral/src/ch32v00x_iwdg.o \
-./Peripheral/src/ch32v00x_misc.o \
-./Peripheral/src/ch32v00x_opa.o \
-./Peripheral/src/ch32v00x_pwr.o \
-./Peripheral/src/ch32v00x_rcc.o \
-./Peripheral/src/ch32v00x_spi.o \
-./Peripheral/src/ch32v00x_tim.o \
-./Peripheral/src/ch32v00x_usart.o \
-./Peripheral/src/ch32v00x_wwdg.o 
-
 C_DEPS += \
 ./Peripheral/src/ch32v00x_adc.d \
 ./Peripheral/src/ch32v00x_dbgmcu.d \
@@ -57,13 +40,26 @@ C_DEPS += \
 ./Peripheral/src/ch32v00x_usart.d \
 ./Peripheral/src/ch32v00x_wwdg.d 
 
+OBJS += \
+./Peripheral/src/ch32v00x_adc.o \
+./Peripheral/src/ch32v00x_dbgmcu.o \
+./Peripheral/src/ch32v00x_dma.o \
+./Peripheral/src/ch32v00x_exti.o \
+./Peripheral/src/ch32v00x_flash.o \
+./Peripheral/src/ch32v00x_gpio.o \
+./Peripheral/src/ch32v00x_i2c.o \
+./Peripheral/src/ch32v00x_iwdg.o \
+./Peripheral/src/ch32v00x_misc.o \
+./Peripheral/src/ch32v00x_opa.o \
+./Peripheral/src/ch32v00x_pwr.o \
+./Peripheral/src/ch32v00x_rcc.o \
+./Peripheral/src/ch32v00x_spi.o \
+./Peripheral/src/ch32v00x_tim.o \
+./Peripheral/src/ch32v00x_usart.o \
+./Peripheral/src/ch32v00x_wwdg.o 
+
+
 
 # Each subdirectory must supply rules for building sources it contributes
 Peripheral/src/%.o: ../Peripheral/src/%.c
-	@echo 'Building file: $<'
-	@echo 'Invoking: GNU RISC-V Cross C Compiler'
-	riscv-none-embed-gcc -march=rv32ec -mabi=ilp32e -msmall-data-limit=0 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/Debug" -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/Core" -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/User" -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/Peripheral/inc" -std=gnu99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
-	@echo 'Finished building: $<'
-	@echo ' '
-
-
+	@	riscv-none-embed-gcc -march=rv32ecxw -mabi=ilp32e -msmall-data-limit=0 -msave-restore -fmax-errors=20 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized -g -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/Debug" -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/Core" -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/User" -I"/home/ra0sms/stm32/RiskV/bcd2civ/code/Peripheral/inc" -std=gnu99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"

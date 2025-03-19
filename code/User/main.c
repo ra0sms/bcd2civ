@@ -479,7 +479,7 @@ int ReadBand (){
 	if (a && !b && !c && d) return 10;
 	if (!a && b && !c && d) return 6;
 	if (a && b && c && d) return 0;
-
+	return 0;
 }
 
 void SetOuts (int band){
@@ -571,6 +571,6 @@ int main(void)
     	band = ReadBand();
     	SendBandData(band);
     	SetOuts(band);
-    	Delay_Ms(1000);
+    	Delay_Ms(200);
     }
 }
