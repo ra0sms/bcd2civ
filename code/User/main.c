@@ -55,10 +55,10 @@ void USARTx_CFG(void)
     USART_InitStructure.USART_StopBits = USART_StopBits_1;
     USART_InitStructure.USART_Parity = USART_Parity_No;
     USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-    USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+    USART_InitStructure.USART_Mode = USART_Mode_Tx; //| USART_Mode_Rx;
 
     USART_Init(USART1, &USART_InitStructure);
-    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+    //USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
 
     NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
@@ -124,28 +124,29 @@ void GPIO_INIT(void)
     GPIO_Init(OUT_D_Port, &GPIO_InitStructure);
 
     GPIO_InitStructure.GPIO_Pin = IN_A;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(IN_A_Port, &GPIO_InitStructure);
-    GPIO_WriteBit(IN_A_Port, IN_A, Bit_SET);
 
     GPIO_InitStructure.GPIO_Pin = IN_B;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(IN_B_Port, &GPIO_InitStructure);
-    GPIO_WriteBit(IN_B_Port, IN_B, Bit_SET);
 
     GPIO_InitStructure.GPIO_Pin = IN_C;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(IN_C_Port, &GPIO_InitStructure);
-    GPIO_WriteBit(IN_C_Port, IN_C, Bit_SET);
 
     GPIO_InitStructure.GPIO_Pin = IN_D;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(IN_D_Port, &GPIO_InitStructure);
-    GPIO_WriteBit(IN_D_Port, IN_D, Bit_SET);
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
 
     Delay_Ms(200);
 
@@ -459,6 +460,7 @@ void SendBandData (int band){
 
 
 int ReadBand (){
+	Delay_Ms(10);
 	int a = 0;
 	int b = 0;
 	int c = 0;
@@ -571,6 +573,6 @@ int main(void)
     	band = ReadBand();
     	SendBandData(band);
     	SetOuts(band);
-    	Delay_Ms(200);
+    	Delay_Ms(50);
     }
 }

@@ -55,7 +55,7 @@ main-build: bcd2civ.elf secondary-outputs
 
 # Tool invocations
 bcd2civ.elf: $(OBJS) $(USER_OBJS)
-	@	riscv-none-embed-gcc -march=rv32ecxw -mabi=ilp32e -msmall-data-limit=0 -msave-restore -fmax-errors=20 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized -g -T "/home/ra0sms/stm32/RiskV/bcd2civ/code/Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"bcd2civ.map" --specs=nano.specs --specs=nosys.specs -o "bcd2civ.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintf
+	@	riscv-none-embed-gcc -march=rv32ecxw -mabi=ilp32e -msmall-data-limit=0 -msave-restore -fmax-errors=20 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized -g -T "/home/mrsuser/bcd2civ/code/Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -Xlinker --print-memory-usage -Wl,-Map,"bcd2civ.map" --specs=nano.specs --specs=nosys.specs -o "bcd2civ.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintf
 bcd2civ.hex: bcd2civ.elf
 	@	riscv-none-embed-objcopy -O ihex "bcd2civ.elf" "bcd2civ.hex"
 bcd2civ.lst: bcd2civ.elf
