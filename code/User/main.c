@@ -28,6 +28,9 @@
 #define IN_D_Port GPIOC
 //***************
 
+#define UART_SPEED 4800
+#define CIV_ADDR 0x7A
+
 int band = 0;
 
 
@@ -50,7 +53,7 @@ void USARTx_CFG(void)
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 
-    USART_InitStructure.USART_BaudRate = 9600;
+    USART_InitStructure.USART_BaudRate = UART_SPEED;
     USART_InitStructure.USART_WordLength = USART_WordLength_8b;
     USART_InitStructure.USART_StopBits = USART_StopBits_1;
     USART_InitStructure.USART_Parity = USART_Parity_No;
@@ -163,9 +166,9 @@ void SendMode(){
 	Delay_Ms(1);
 	USART_SendData(USART1, 0xFE);
 	Delay_Ms(1);
-	USART_SendData(USART1, 0x00);
+	USART_SendData(USART1, 0xE0);
 	Delay_Ms(1);
-	USART_SendData(USART1, 0x94);
+	USART_SendData(USART1, CIV_ADDR);
 	Delay_Ms(1);
 	USART_SendData(USART1, 0x04);
 	Delay_Ms(1);
@@ -177,285 +180,39 @@ void SendMode(){
 	Delay_Ms(1);
 }
 
-void SendBandData (int band){
-	switch (band){
-	case 160: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x84);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x01);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 80: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x30);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x57);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x03);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 60: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x36);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x05);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 40: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x40);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x07);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x07);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 30: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x60);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x13);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x10);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 20: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x40);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x07);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x14);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 17: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x10);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x18);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 15: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x40);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x07);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x21);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 12: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x50);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x91);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x24);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 10: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x40);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x07);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x28);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 6: {
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFE);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x94);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x80);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x31);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x50);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0x00);
-		Delay_Ms(1);
-		USART_SendData(USART1, 0xFD);
-		SendMode();
-		break;
-	}
-	case 0: printf ("No data\n"); break;
-	}
+void SendBandData(int band) {
+    if (band == 0) {
+        printf("No data\n");
+        return;
+    }
+    const uint8_t prefix[] = {0xFE, 0xFE, 0xE0, CIV_ADDR, 0x03, 0x00};
+    uint8_t band_data[3] = {0};
+    switch (band) {
+        case 160: band_data[0] = 0x00; band_data[1] = 0x84; band_data[2] = 0x01; break;
+        case 80:  band_data[0] = 0x30; band_data[1] = 0x57; band_data[2] = 0x03; break;
+        case 60:  band_data[0] = 0x00; band_data[1] = 0x36; band_data[2] = 0x05; break;
+        case 40:  band_data[0] = 0x40; band_data[1] = 0x07; band_data[2] = 0x07; break;
+        case 30:  band_data[0] = 0x60; band_data[1] = 0x13; band_data[2] = 0x10; break;
+        case 20:  band_data[0] = 0x40; band_data[1] = 0x07; band_data[2] = 0x14; break;
+        case 17:  band_data[0] = 0x00; band_data[1] = 0x10; band_data[2] = 0x18; break;
+        case 15:  band_data[0] = 0x40; band_data[1] = 0x07; band_data[2] = 0x21; break;
+        case 12:  band_data[0] = 0x50; band_data[1] = 0x91; band_data[2] = 0x24; break;
+        case 10:  band_data[0] = 0x40; band_data[1] = 0x07; band_data[2] = 0x28; break;
+        case 6:   band_data[0] = 0x80; band_data[1] = 0x31; band_data[2] = 0x50; break;
+        default: return;
+    }
+    for (int i = 0; i < sizeof(prefix); i++) {
+        USART_SendData(USART1, prefix[i]);
+        Delay_Ms(1);
+    }
+    for (int i = 0; i < 3; i++) {
+        USART_SendData(USART1, band_data[i]);
+        Delay_Ms(1);
+    }
+    USART_SendData(USART1, 0x00);
+    Delay_Ms(1);
+    USART_SendData(USART1, 0xFD);
+    SendMode();
 }
 
 
