@@ -161,32 +161,28 @@ void GPIO_INIT(void)
 }
 
 void SendMode(){
-	Delay_Ms(1);
+	Delay_Ms(2);
 	USART_SendData(USART1, 0xFE);
-	Delay_Ms(1);
+	Delay_Ms(2);
 	USART_SendData(USART1, 0xFE);
-	Delay_Ms(1);
+	Delay_Ms(2);
 	USART_SendData(USART1, 0xE0);
-	Delay_Ms(1);
-	USART_SendData(USART1, CIV_ADDR);
-	Delay_Ms(1);
+	Delay_Ms(2);
+	USART_SendData(USART1, 0x7A);
+	Delay_Ms(2);
 	USART_SendData(USART1, 0x04);
-	Delay_Ms(1);
+	Delay_Ms(2);
 	USART_SendData(USART1, 0x01);
-	Delay_Ms(1);
+	Delay_Ms(2);
 	USART_SendData(USART1, 0x01);
-	Delay_Ms(1);
+	Delay_Ms(2);
 	USART_SendData(USART1, 0xFD);
-	Delay_Ms(1);
+	Delay_Ms(2);
 }
 
 void SendBandData(int band) {
-    if (band == 0) {
-        printf("No data\n");
-        return;
-    }
     const uint8_t prefix[] = {0xFE, 0xFE, 0xE0, CIV_ADDR, 0x03, 0x00};
-    uint8_t band_data[3] = {0};
+    uint8_t band_data[3] = {0}; 
     switch (band) {
         case 160: band_data[0] = 0x00; band_data[1] = 0x84; band_data[2] = 0x01; break;
         case 80:  band_data[0] = 0x30; band_data[1] = 0x57; band_data[2] = 0x03; break;
@@ -199,22 +195,20 @@ void SendBandData(int band) {
         case 12:  band_data[0] = 0x50; band_data[1] = 0x91; band_data[2] = 0x24; break;
         case 10:  band_data[0] = 0x40; band_data[1] = 0x07; band_data[2] = 0x28; break;
         case 6:   band_data[0] = 0x80; band_data[1] = 0x31; band_data[2] = 0x50; break;
-        default: return;
+        default: return; // Unknown band
     }
     for (int i = 0; i < sizeof(prefix); i++) {
         USART_SendData(USART1, prefix[i]);
-        Delay_Ms(1);
+        Delay_Ms(2);
     }
     for (int i = 0; i < 3; i++) {
         USART_SendData(USART1, band_data[i]);
-        Delay_Ms(1);
+        Delay_Ms(2);
     }
     USART_SendData(USART1, 0x00);
-    Delay_Ms(1);
+    Delay_Ms(2);
     USART_SendData(USART1, 0xFD);
-    SendMode();
 }
-
 
 int ReadBand (){
 	Delay_Ms(10);
@@ -330,6 +324,6 @@ int main(void)
     	band = ReadBand();
     	SendBandData(band);
     	SetOuts(band);
-    	Delay_Ms(50);
+    	Delay_Ms(200);
     }
 }
